@@ -50,3 +50,13 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Zephyr
+zephyrproject
+
+# Python
+*.lock
+
+# C
+
+# Rust
