@@ -1,0 +1,71 @@
+name: Zephyr C builds
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  target:
+    name: Target builds
+    # The CMake configure and build commands are platform agnostic and should work equally
+    # well on Windows or Mac.  You can convert this to a matrix build if you need
+    # cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: System Packages
+        run: |
+          sudo apt-get install ninja-build doxygen graphviz cppcheck clang-tidy
+          pip3 install pipenv
+
+      - name: Check environment
+        run: |
+          cmake --version
+          gcc --version
+          clang --version
+          ninja --version
+          doxygen --version
+          cppcheck --version
+          clang-tidy --version
+          pipenv --version
+
+      - id: cache-pipenv
+        uses: actions/cache@v1
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+
+      - name: Configure Pipenv
+        if: steps.cache-pipenv.outputs.cache-hit != 'true'
+        run: |
+          pipenv install
+          pipenv graph
+
+      - name: Install Zephyr
+        run: |
+          pipenv shell
+          west init zephyrproject
+          cd zephyrproject/zephyr
+          git checkout v3.0.0
+          pip install -r scripts/requirements.txt
+          chmod +x zephyr-env.sh
+          source zephyr-env.sh
+          west zephyr-export
+          cd ..
+          west update
+          printenv | grep ZEPHYR_BASE
+          pip3 --version
+
+      - name: Check Environment
+        run: |
+          printenv | grep ZEPHYR_BASE
+          pip3 --version
