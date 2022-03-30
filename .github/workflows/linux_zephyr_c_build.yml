@@ -38,14 +38,7 @@ jobs:
           clang-tidy --version
           pipenv --version
 
-      - id: cache-pipenv
-        uses: actions/cache@v1
-        with:
-          path: ~/.local/share/virtualenvs
-          key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
-
       - name: Configure Pipenv
-        if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
           pipenv install
           pipenv graph
