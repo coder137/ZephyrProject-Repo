@@ -51,10 +51,10 @@ jobs:
           west zephyr-export
           cd ..
           west update
-          printenv | grep ZEPHYR_BASE
+          printenv
           pip3 --version
 
       - name: Check Environment
         run: |
-          printenv | grep ZEPHYR_BASE
+          printenv
           pip3 --version
