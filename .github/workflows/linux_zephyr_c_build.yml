@@ -46,7 +46,8 @@ jobs:
           git checkout v3.0.0
           pip3 install -r scripts/requirements.txt
           chmod +x zephyr-env.sh
-          source zephyr-env.sh
+          echo 'source ${{github.workspace}}/zephyrproject/zephyr/zephyr-env.sh' >> ~/.bashrc
+          source ~/.bashrc
           west zephyr-export
           cd ..
           west update
