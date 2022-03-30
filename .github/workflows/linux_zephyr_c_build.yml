@@ -25,6 +25,7 @@ jobs:
       - name: System Packages
         run: |
           sudo apt-get install ninja-build doxygen graphviz cppcheck clang-tidy
+          pip3 install pipenv
 
       - name: Check environment
         run: |
