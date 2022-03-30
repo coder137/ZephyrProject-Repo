@@ -1,4 +1,4 @@
-name: Zephyr C builds
+name: Linux Zephyr C builds
 
 on:
   push:
@@ -25,7 +25,6 @@ jobs:
       - name: System Packages
         run: |
           sudo apt-get install ninja-build doxygen graphviz cppcheck clang-tidy
-          pip3 install pipenv
 
       - name: Check environment
         run: |
@@ -47,7 +46,10 @@ jobs:
       - name: Configure Pipenv
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
-          pipenv install --skip-lock
+          pipenv install
+          cd zephyrproject/zephyr
+          git checkout v3.0.0
+          pip install -r scripts/requirements.txt
           pipenv graph
 
       - name: Install Zephyr
@@ -56,7 +58,6 @@ jobs:
           west init zephyrproject
           cd zephyrproject/zephyr
           git checkout v3.0.0
-          pip install -r scripts/requirements.txt
           chmod +x zephyr-env.sh
           source zephyr-env.sh
           west zephyr-export
