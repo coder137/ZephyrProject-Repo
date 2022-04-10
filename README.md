@@ -54,7 +54,8 @@ DONE
 ## Development
 
 - [ ] Simulation using QEMU
-- [ ] Unit Testing and Mocking
-- [ ] Code Coverage
-- [ ] CI/CD
+- [x] Unit Testing
+- [ ] Mocking
+- [x] Code Coverage with Codecov
+- [x] CI/CD
 - [ ] Documentation
