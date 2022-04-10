@@ -63,11 +63,13 @@ jobs:
       # TODO, Add the GNU ARM build as well
       - name: Unit Testing example - native_posix build
         run: |
+          source zephyrproject/zephyr/zephyr-env.sh
           cd examples/unit_testing
           west build -b native_posix -d _build_native_posix .
       
       - name: Unit Testing example - Twister and Code coverage
         run: |
+          source zephyrproject/zephyr/zephyr-env.sh
           cd examples/unit_testing
           ZEPHYR_TOOLCHAIN_VARIANT=host $ZEPHYR_BASE/scripts/twister -T . -C --coverage-tool lcov --coverage-platform native_posix --coverage-basedir .
           chmod +x scripts/coverage_update.py
