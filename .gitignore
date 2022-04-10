@@ -54,9 +54,11 @@ dkms.conf
 # Misc
 .vscode
 build
+_build_*
 
 # Zephyr
 zephyrproject
+twister-out*
 
 # Python
 *.lock
