@@ -24,7 +24,7 @@ jobs:
 
       - name: System Packages
         run: |
-          sudo apt-get install ninja-build lcov doxygen graphviz cppcheck clang-tidy
+          sudo apt-get install gcc-multilib ninja-build lcov doxygen graphviz cppcheck clang-tidy
 
       - name: Check environment
         run: |
