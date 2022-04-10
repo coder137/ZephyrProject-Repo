@@ -18,6 +18,14 @@ ZEPHYR_TOOLCHAIN_VARIANT=gnuarmemb GNUARMEMB_TOOLCHAIN_PATH=/usr west build -b d
 ZEPHYR_TOOLCHAIN_VARIANT=host $ZEPHYR_BASE/scripts/twister -T . -C --coverage-tool lcov --coverage-platform native_posix --coverage-basedir .
 ```
 
+**Additional Processing**
+
+```bash
+# From project root
+chmod +x scripts/coverage_update.py
+./scripts/coverage_update.py
+```
+
 The above command runs
 
 - `hello_world` example
