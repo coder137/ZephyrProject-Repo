@@ -1,0 +1,4 @@
+tests:
+  lib.foo:
+    tags: foo
+    type: unit
