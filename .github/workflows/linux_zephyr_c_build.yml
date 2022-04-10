@@ -24,7 +24,7 @@ jobs:
 
       - name: System Packages
         run: |
-          sudo apt-get install ninja-build doxygen graphviz cppcheck clang-tidy
+          sudo apt-get install ninja-build lcov doxygen graphviz cppcheck clang-tidy
 
       - name: Check environment
         run: |
@@ -32,6 +32,7 @@ jobs:
           gcc --version
           clang --version
           ninja --version
+          lcov --version
           doxygen --version
           cppcheck --version
           clang-tidy --version
@@ -58,3 +59,22 @@ jobs:
           source zephyrproject/zephyr/zephyr-env.sh
           printenv
           pip3 --version
+
+      # TODO, Add the GNU ARM build as well
+      - name: Unit Testing example - native_posix build
+        run: |
+          cd examples/unit_testing
+          west build -b native_posix -d _build_native_posix .
+      
+      - name: Unit Testing example - Twister and Code coverage
+        run: |
+          cd examples/unit_testing
+          ZEPHYR_TOOLCHAIN_VARIANT=host $ZEPHYR_BASE/scripts/twister -T . -C --coverage-tool lcov --coverage-platform native_posix --coverage-basedir .
+          chmod +x scripts/coverage_update.py
+          ./scripts/coverage_update.py
+
+      - uses: codecov/codecov-action@v2
+        with:
+          files: twister-out/coverage_truncated.info
+          fail_ci_if_error: true
+          verbose: true
