@@ -51,4 +51,11 @@ DONE
     - Native Posix architecture (debuggable/unit testable)
 - [ ] Zephyr C example with Rust libraries for high level functionality
 
-> TODO, Add more
+## Development
+
+- [ ] Simulation using QEMU
+- [x] Unit Testing
+- [ ] Mocking
+- [x] Code Coverage with Codecov
+- [x] CI/CD
+- [ ] Documentation
