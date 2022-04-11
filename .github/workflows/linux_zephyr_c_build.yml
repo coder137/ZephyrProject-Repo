@@ -71,7 +71,8 @@ jobs:
         run: |
           source zephyrproject/zephyr/zephyr-env.sh
           cd examples/unit_testing
-          ZEPHYR_TOOLCHAIN_VARIANT=host $ZEPHYR_BASE/scripts/twister -T . -C --coverage-tool lcov --coverage-platform native_posix --coverage-basedir .
+          chmod +x run_twister.py
+          ./run_twister.py
           chmod +x scripts/coverage_update.py
           ./scripts/coverage_update.py
 
