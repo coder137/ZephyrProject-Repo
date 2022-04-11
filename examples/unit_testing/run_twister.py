@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+The purpose of this script is to pass extra arguments to the testing CMakeLists.txt files as well as reduce typing a bunch of arguments manually on the command line
+"""
+
 import subprocess
 import os
 
