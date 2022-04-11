@@ -1,0 +1,4 @@
+tests:
+  lib.bar:
+    tags: bar
+    type: unit
