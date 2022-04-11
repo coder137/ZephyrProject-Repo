@@ -15,6 +15,7 @@ ZEPHYR_BASE = os.getenv("ZEPHYR_BASE")
 REMOVE_LIST = [
     f"*{ZEPHYR_BASE}/*",
     "*/test/*",
+    "/*mock/*",
 ]
 
 # Main subprocess call
